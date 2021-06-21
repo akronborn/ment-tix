@@ -1,12 +1,18 @@
 {
-  "name": "auth",
+  "name": "mentmint",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "ts-node-dev src/index.ts"
   },
-  "keywords": [node, typescript, express, docker, kubernetes],
+  "keywords": [
+    "node",
+    "typescript",
+    "express",
+    "docker",
+    "kubernetes"
+  ],
   "author": "Clotia Johari",
   "license": "ISC",
   "dependencies": {
