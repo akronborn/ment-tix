@@ -1,6 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
+import mongoose from 'mongoose';
 
 import { activeUserRouter } from './routes/active-user';
 import { signupRouter } from './routes/signup';
@@ -23,6 +24,21 @@ app.all('*', async (req, res) => {
 
 app.use(errorHandler);
 
+const startDB = async () => {
+  try {
+    await mongoose.connect('mongodb://authv2-mongo-srv:27017/authv2', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+    console.log('Database connection established');
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 app.listen(3000, () => {
   console.log('Listening on port 3000');
 });
+
+startDB();
