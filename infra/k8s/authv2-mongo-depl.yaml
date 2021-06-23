@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authv2-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authv2-mongo
+  template:
+    metadata:
+      labels:
+        app: authv2-mongo
+    spec:
+      containers:
+        - name: authv2-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authv2-mongo-srv
+spec:
+  selector:
+    app: authv2-mongo
+  ports:
+    - name: mongodbport
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
