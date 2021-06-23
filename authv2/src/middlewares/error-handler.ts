@@ -1,14 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
+import { CustomError } from '../errors/custom-error';
 
 export const errorHandler = (
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
-  console.log('Action failed', err);
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).send({ errors: err.standardizeErrors() });
+  }
 
   res.status(400).send({
-    message: 'Action failed',
+    errors: [{ message: 'Request failed' }],
   });
 };
