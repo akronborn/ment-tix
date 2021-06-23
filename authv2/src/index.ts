@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import { json } from 'body-parser';
 
 import { activeUserRouter } from './routes/active-user';
@@ -16,7 +17,7 @@ app.use(signupRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
 
-app.all('*', () => {
+app.all('*', async (req, res) => {
   throw new PageNotFound();
 });
 
