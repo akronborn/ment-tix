@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import { Secret } from '../services/secret';
 //Interface specifies the required properties to create a new user
 
 interface UserCreds {
@@ -28,6 +28,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+userSchema.pre('save', async function (done) {
+  if (this.isModified('password')) {
+    const hashed = await Secret.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  done();
 });
 
 userSchema.statics.build = (creds: UserCreds) => {
