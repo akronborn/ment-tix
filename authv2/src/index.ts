@@ -2,6 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
 
 import { activeUserRouter } from './routes/active-user';
 import { signupRouter } from './routes/signup';
@@ -11,7 +12,14 @@ import { errorHandler } from './middleware/error-handler';
 import { PageNotFound } from './errors/page-not-found';
 
 const app = express();
+app.set('trust proxy', true);
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 app.use(activeUserRouter);
 app.use(signupRouter);
