@@ -33,6 +33,10 @@ app.all('*', async (req, res) => {
 app.use(errorHandler);
 
 const startDB = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('Keys must be defined');
+  }
+
   try {
     await mongoose.connect('mongodb://authv2-mongo-srv:27017/authv2', {
       useNewUrlParser: true,
