@@ -39,7 +39,7 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      'asdf'
+      process.env.JWT_KEY!
     );
 
     //Store user token on session object
