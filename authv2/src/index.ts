@@ -9,7 +9,7 @@ import { signupRouter } from './routes/signup';
 import { loginRouter } from './routes/login';
 import { logoutRouter } from './routes/logout';
 import { errorHandler } from './middleware/error-handler';
-import { PageNotFound } from './errors/page-not-found';
+import { PageNotFound } from './errors/page-not-found-error';
 
 const app = express();
 app.set('trust proxy', true);

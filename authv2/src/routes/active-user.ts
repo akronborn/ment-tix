@@ -1,19 +1,14 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import { UnAuthorizedError } from '../errors/unauthorized-error';
+
+import { activeUser } from '../middleware/active-user-state';
+import { authWall } from '../middleware/auth-wall';
 
 const router = express.Router();
 
-router.get('/api/users/activeuser', (req, res) => {
-  if (!req.session || !req.session.jwt) {
-    return res.send({ activeUser: null });
-  }
-
-  try {
-    const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!);
-    res.send({ activeUser: payload });
-  } catch (err) {
-    res.send({ activeUser: null });
-  }
+router.get('/api/users/activeuser', activeUser, authWall, (req, res) => {
+  res.send({ activeUser: req.activeUser || null });
 });
 
 export { router as activeUserRouter };
