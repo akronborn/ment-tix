@@ -1,24 +1,24 @@
 import { useState } from "react";
-import axios from "axios";
+import Router from "next/router";
+import useRequest from "../../hooks/useRequest";
 
 export default () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const { makeRequest, errors } = useRequest({
+    url: "/api/users/signup",
+    method: "post",
+    body: {
+      email,
+      password,
+    },
+    onSuccess: () => Router.push("/"),
+  });
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await axios.post("/api/users/signup", {
-        email,
-        password,
-      });
-
-      console.log(response.data);
-    } catch (err) {
-      setErrors(err.response.data.errors);
-    }
+    await makeRequest();
   };
 
   return (
@@ -43,16 +43,7 @@ export default () => {
           placeholder="Password must be between 8 and 24 characters"
         />
       </div>
-      {errors.length > 0 && (
-        <div className="alert alert-warning">
-          <h4>Sign up failed</h4>
-          <ul className="my-0">
-            {errors.map((err) => (
-              <li key={err.message}>{err.message}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {errors}
       <button className="btn btn-outline-primary">Create new account</button>
     </form>
   );
