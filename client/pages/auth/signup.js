@@ -1,18 +1,59 @@
-const SignUp = () => {
+import { useState } from "react";
+import axios from "axios";
+
+export default () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("/api/users/signup", {
+        email,
+        password,
+      });
+
+      console.log(response.data);
+    } catch (err) {
+      setErrors(err.response.data.errors);
+    }
+  };
+
   return (
-    <form>
-      <h1>Sign Up Page</h1>
+    <form onSubmit={onSubmit}>
+      <h1>Sign Up</h1>
       <div className="form-group">
         <label>Email Address</label>
-        <input className="form-control" />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="form-control"
+          placeholder="example@email.com"
+        />
       </div>
       <div className="form-group">
         <label>Password</label>
-        <input className="form-control" type="password" />
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          className="form-control"
+          placeholder="Password must be between 8 and 24 characters"
+        />
       </div>
-      <button className="btn btn-outline-primary "> Create new account </button>
+      {errors.length > 0 && (
+        <div className="alert alert-warning">
+          <h4>Sign up failed</h4>
+          <ul className="my-0">
+            {errors.map((err) => (
+              <li key={err.message}>{err.message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <button className="btn btn-outline-primary">Create new account</button>
     </form>
   );
 };
-
-export default SignUp;
