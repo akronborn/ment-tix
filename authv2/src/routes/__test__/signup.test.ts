@@ -20,3 +20,13 @@ it('returns status 400 after request email validation failure', async () => {
     })
     .expect(400);
 });
+
+it('returns status 400 after request password validation failure', async () => {
+  return request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'validemail2@email.com',
+      password: 'pass1',
+    })
+    .expect(400);
+});
