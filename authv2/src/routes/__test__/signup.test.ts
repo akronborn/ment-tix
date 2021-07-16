@@ -11,6 +11,16 @@ it('returns status 201 on successful signup', async () => {
     .expect(201);
 });
 
+it('returns status 400 after empty email and password submission', async () => {
+  return request(app)
+    .post('/api/users/signup')
+    .send({
+      email: '',
+      password: '',
+    })
+    .expect(400);
+});
+
 it('returns status 400 after request email validation failure', async () => {
   return request(app)
     .post('/api/users/signup')
@@ -27,6 +37,24 @@ it('returns status 400 after request password validation failure', async () => {
     .send({
       email: 'validemail2@email.com',
       password: 'pass1',
+    })
+    .expect(400);
+});
+
+it('Returns status 400 failed request due to duplicate email', async () => {
+  await request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'testtest@email.com',
+      password: 'password1',
+    })
+    .expect(201);
+
+  return request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'testtest@email.com',
+      password: 'password1',
     })
     .expect(400);
 });
