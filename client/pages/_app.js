@@ -1,10 +1,16 @@
 import "bootstrap/dist/css/bootstrap.css";
 import buildClient from "../api/build-client";
 import Header from "../components/Header";
+import Head from "next/head";
+import favicon from "../public/favicon.ico";
 
 const AppComponent = ({ Component, pageProps, activeUser }) => {
   return (
     <div>
+      <Head>
+        <link rel="shortcut image" href={favicon} type="image/x-icon" />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+      </Head>
       <Header activeUser={activeUser} />
       <Component {...pageProps} />
     </div>
