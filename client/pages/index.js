@@ -1,25 +1,24 @@
 import axios from "axios";
 
 const LandingPage = ({ activeUser }) => {
-  return <h1>Landing Page</h1>;
+  console.log(activeUser);
+  return <h1>Hello, {activeUser?.email ?? "user"}</h1>;
 };
 
-LandingPage.getInitialProps = async () => {
-  if (typeof window === undefined) {
-    const { data } = await axios.get(
-      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/activeuser"
+export const getServerSideProps = async ({ req }) => {
+  let res;
+  if (typeof window === "undefined") {
+    res = await axios.get(
+      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/activeuser",
+      {
+        withCredentials: true,
+        headers: req.headers,
+      }
     );
-
-    headers: {
-      Host: "mentmint.dev";
-    }
-
-    return data;
   } else {
-    const { data } = await axios.get("/api/users/activeuser");
-    return data;
+    res = await axios.get("/api/users/activeuser");
   }
-  return {};
+  return { props: res.data };
 };
 
 export default LandingPage;
