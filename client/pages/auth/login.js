@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/use-request";
 
-export default () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { makeRequest, errors } = useRequest({
-    url: "/api/users/signup",
+    url: "/api/users/login",
     method: "post",
     body: {
       email,
@@ -23,14 +23,13 @@ export default () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h1>Sign Up</h1>
+      <h1>Log In</h1>
       <div className="form-group">
         <label>Email Address</label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="form-control"
-          placeholder="example@email.com"
         />
       </div>
       <div className="form-group">
@@ -40,11 +39,12 @@ export default () => {
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           className="form-control"
-          placeholder="Password must be between 8 and 24 characters"
         />
       </div>
       {errors}
-      <button className="btn btn-outline-primary">Create new account</button>
+      <button className="btn btn-primary">Log In</button>
     </form>
   );
 };
+
+export default Login;
