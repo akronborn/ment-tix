@@ -3,6 +3,7 @@ import buildClient from "../api/build-client";
 import Header from "../components/Header";
 import Head from "next/head";
 import favicon from "../public/favicon.svg";
+import "../pages/styles.css";
 
 const AppComponent = ({ Component, pageProps, activeUser }) => {
   return (

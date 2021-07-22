@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "../public/Logo.svg";
 
 const Header = ({ activeUser }) => {
   const links = [
@@ -18,16 +20,21 @@ const Header = ({ activeUser }) => {
     });
 
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar-expand-md navbar-light bg-light">
       <Link href="/">
-        <a className="navbar-brand">
-          <h1>Ment-Tix </h1>{" "}
-          <small class="text-muted">Edu-commerce Platform</small>
+        <a className="navbar-brand" className="align-middle" href="#">
+          <Image
+            src={Logo}
+            alt="Ment-Tix Logo"
+            height="280"
+            alt="Ment-Tix Logo"
+          />
         </a>
       </Link>
+      <small class="navbar-text">Edu-commerce Platform</small>
 
       <div className="d-flex justify-content-end">
-        <ul className="nav nav-tabs badge">{links}</ul>
+        <ul className="nav d-flex align-items-center">{links}</ul>
       </div>
     </nav>
   );
