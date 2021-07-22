@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import buildClient from "../api/build-client";
 import Header from "../components/Header";
 import Head from "next/head";
-import favicon from "../public/favicon.ico";
+import favicon from "../public/favicon.svg";
 
 const AppComponent = ({ Component, pageProps, activeUser }) => {
   return (

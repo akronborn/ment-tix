@@ -27,7 +27,7 @@ const Header = ({ activeUser }) => {
       </Link>
 
       <div className="d-flex justify-content-end">
-        <ul className="nav nav-tabs badge badge-info">{links}</ul>
+        <ul className="nav nav-tabs badge">{links}</ul>
       </div>
     </nav>
   );
