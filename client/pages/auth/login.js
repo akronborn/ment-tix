@@ -42,7 +42,7 @@ const Login = () => {
         />
       </div>
       {errors}
-      <button className="btn btn-primary">Log In</button>
+      <button className="btn btn-outline-primary">Log In</button>
     </form>
   );
 };

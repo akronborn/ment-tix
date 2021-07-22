@@ -20,11 +20,14 @@ const Header = ({ activeUser }) => {
   return (
     <nav className="navbar navbar-light bg-light">
       <Link href="/">
-        <a className="navbar-brand">Ment-Tix</a>
+        <a className="navbar-brand">
+          <h1>Ment-Tix </h1>{" "}
+          <small class="text-muted">Edu-commerce Platform</small>
+        </a>
       </Link>
 
       <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+        <ul className="nav nav-tabs badge badge-info">{links}</ul>
       </div>
     </nav>
   );
