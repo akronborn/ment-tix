@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tix-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tix
+  template:
+    metadata:
+      labels:
+        app: tix
+    spec:
+      containers:
+        - name: tix
+          image: akronborn/tix
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tix-srv
+spec:
+  selector:
+    app: tix
+  ports:
+    - name: tix
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
