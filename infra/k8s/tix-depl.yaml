@@ -16,6 +16,8 @@ spec:
         - name: tix
           image: akronborn/tix
           env:
+            - name: MONGO_URI
+              value: "mongodb://tix-mongo-srv:27017/tix"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

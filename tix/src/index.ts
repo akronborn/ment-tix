@@ -5,14 +5,17 @@ const startDB = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('Keys must be defined');
   }
+  if (!process.env.JWT_KEY) {
+    throw new Error('MONGO_URI is undefined');
+  }
 
   try {
-    await mongoose.connect('mongodb://authv2-mongo-srv:27017/authv2', {
+    await mongoose.connect('mongodb://tix-mongo-srv:27017/tix', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log('Database connection established');
+    console.log('Tix database connection established');
   } catch (err) {
     console.error(err);
   }
