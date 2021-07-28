@@ -31,7 +31,7 @@ const Header = ({ activeUser }) => {
           />
         </a>
       </Link>
-      <small class="navbar-text">Edu-commerce Platform</small>
+      <small className="navbar-text">Edu-commerce Platform</small>
 
       <div className="d-flex justify-content-end">
         <ul className="nav d-flex align-items-center">{links}</ul>
