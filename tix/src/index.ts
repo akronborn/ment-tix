@@ -10,7 +10,7 @@ const startDB = async () => {
   }
 
   try {
-    await mongoose.connect('mongodb://tix-mongo-srv:27017/tix', {
+    await mongoose.connect(`${process.env.MONGO_URI}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
