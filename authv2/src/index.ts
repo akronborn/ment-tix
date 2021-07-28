@@ -7,7 +7,7 @@ const startDB = async () => {
   }
 
   try {
-    await mongoose.connect('mongodb://authv2-mongo-srv:27017/authv2', {
+    await mongoose.connect(`${process.env.MONGO_URI}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

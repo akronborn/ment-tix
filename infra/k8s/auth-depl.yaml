@@ -16,6 +16,8 @@ spec:
         - name: authv2
           image: akronborn/authv2
           env:
+            - name: MONGO_URI
+              value: "mongodb://authv2-mongo-srv:27017/authv2"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
