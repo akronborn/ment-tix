@@ -8,7 +8,10 @@ it('has post request route handler listening', async () => {
 });
 
 it('Should not return status 401 for logged in user ', async () => {
-  const response = await request(app).post('/api/tix').send({});
+  const response = await request(app)
+    .post('/api/tix')
+    .set('Cookie', global.signin())
+    .send({});
 
   expect(response.status).not.toEqual(401);
 });
