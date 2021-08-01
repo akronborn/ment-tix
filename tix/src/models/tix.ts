@@ -2,14 +2,14 @@ import mongoose from 'mongoose';
 
 interface TixAttrs {
   title: string;
-  body: string;
+  content: string;
   price: number;
   userId: string;
 }
 
 interface TixDoc extends mongoose.Document {
   title: number;
-  body: string;
+  content: string;
   price: number;
   userId: string;
 }
@@ -24,7 +24,7 @@ const tixSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    body: {
+    content: {
       type: String,
       required: true,
     },

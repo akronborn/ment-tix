@@ -27,7 +27,7 @@ it('error thrown when title is invalid ', async () => {
     .set('Cookie', global.signin())
     .send({
       title: '',
-      body: 'description',
+      content: 'description',
       price: 10,
     })
     .expect(400);
@@ -36,7 +36,7 @@ it('error thrown when title is invalid ', async () => {
     .post('/api/tix')
     .set('Cookie', global.signin())
     .send({
-      body: 'description',
+      content: 'description',
       price: 10,
     })
     .expect(400);
@@ -48,7 +48,7 @@ it('error thrown when price is invalid ', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'Sample Title',
-      body: 'description',
+      content: 'description',
     })
     .expect(400);
 
@@ -57,7 +57,7 @@ it('error thrown when price is invalid ', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'Sample Title',
-      body: 'sample body',
+      content: 'sample content',
       price: -1,
     })
     .expect(400);
@@ -72,7 +72,7 @@ it('ticket created when all inputs are valid ', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'Sample Title 2',
-      body: 'Description',
+      content: 'Description',
       price: 20.0,
     })
     .expect(201);
