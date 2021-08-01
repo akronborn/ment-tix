@@ -17,11 +17,11 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, body, price } = req.body;
+    const { title, content, price } = req.body;
 
     const tix = Tix.build({
       title,
-      body,
+      content,
       price,
       userId: req.activeUser!.id,
     });
