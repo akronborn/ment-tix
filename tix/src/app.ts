@@ -10,6 +10,7 @@ import { activeUser } from './middleware/active-user-state';
 import { newTixRouter } from './routes/new';
 import { consultTixRouter } from './routes/consult';
 import { indexTixRouter } from './routes';
+import { updateTixRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', true);
@@ -26,6 +27,7 @@ app.use(activeUser);
 app.use(newTixRouter);
 app.use(consultTixRouter);
 app.use(indexTixRouter);
+app.use(updateTixRouter);
 
 app.all('*', async (req, res) => {
   throw new PageNotFound();

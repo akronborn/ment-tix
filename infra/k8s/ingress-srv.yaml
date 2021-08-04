@@ -17,6 +17,13 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
+          - path: /api/tix/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tix-srv
+                port:
+                  number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
