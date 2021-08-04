@@ -10,6 +10,6 @@ export class PageNotFound extends CustomError {
   }
 
   standardizeErrors() {
-    return [{ message: 'Page Not Found' }];
+    return [{ message: 'Requested Resource Not Found' }];
   }
 }

@@ -12,7 +12,7 @@ router.post(
   [
     body('title').not().isEmpty().withMessage('Title required'),
     body('price')
-      .isFloat({ gt: 0 })
+      .isFloat({ min: 0 })
       .withMessage('Price must be greater than zero'),
   ],
   validateRequest,
