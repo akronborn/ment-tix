@@ -5,7 +5,8 @@ import { authWall } from '../middleware/auth-wall';
 import { validateRequest } from '../middleware/validate-request';
 import { PageNotFound } from '../errors/page-not-found-error';
 import { UnAuthorizedError } from '../errors/unauthorized-error';
-
+import { TixUpdatedPublisher } from '../events/publishers/tix-updated-publisher';
+import { natsWrapper } from '../nats-wrapper';
 import { Tix } from '../models/tix';
 
 const router = express.Router();
@@ -38,6 +39,14 @@ router.put(
       price: req.body.price,
     });
     await tix.save();
+
+    new TixUpdatedPublisher(natsWrapper.client).publish({
+      id: tix.id,
+      title: tix.title,
+      content: tix.content,
+      price: tix.price,
+      userId: tix.userId,
+    });
 
     res.send(tix);
   }

@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 import { authWall } from '../middleware/auth-wall';
 import { validateRequest } from '../middleware/validate-request';
 import { Tix } from '../models/tix';
+import { TixCreatedPublisher } from '../events/publishers/tix-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -11,6 +13,7 @@ router.post(
   authWall,
   [
     body('title').not().isEmpty().withMessage('Title required'),
+    body('content').not().isEmpty().withMessage('Description required'),
     body('price')
       .isFloat({ min: 0 })
       .withMessage('Price must be greater than zero'),
@@ -26,6 +29,13 @@ router.post(
       userId: req.activeUser!.id,
     });
     await tix.save();
+    await new TixCreatedPublisher(natsWrapper.client).publish({
+      id: tix.id,
+      title: tix.title,
+      content: tix.content,
+      price: tix.price,
+      userId: tix.userId,
+    });
 
     res.status(201).send(tix);
   }

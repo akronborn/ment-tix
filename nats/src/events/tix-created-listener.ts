@@ -12,6 +12,7 @@ export class TixCreatedListener extends Listener<TixCreatedEvent> {
 
     console.log(data.title);
     console.log(data.content);
+    console.log(data.price);
 
     msg.ack();
   }

@@ -13,7 +13,7 @@ stan.on("connect", async () => {
   const publisher = new TixCreatedPublisher(stan);
   try {
     await publisher.publish({
-      id: "456",
+      id: "890",
       title: "new title",
       content: "here comes the content",
       price: 60,
