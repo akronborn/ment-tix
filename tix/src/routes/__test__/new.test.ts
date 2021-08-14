@@ -2,6 +2,8 @@ import request from 'supertest';
 import { app } from '../../app';
 import { Tix } from '../../models/tix';
 
+import { natsWrapper } from '../../nats-wrapper';
+
 it('has post request route handler listening', async () => {
   const response = await request(app).post('/api/tix').send({});
 
@@ -79,4 +81,20 @@ it('ticket created when all inputs are valid ', async () => {
 
   tix = await Tix.find({});
   expect(tix.length).toEqual(1);
+});
+
+it('successfully publishes an event', async () => {
+  const title = 'first title';
+
+  await request(app)
+    .post('/api/tix')
+    .set('Cookie', global.signin())
+    .send({
+      title,
+      content: 'description',
+      price: 30,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

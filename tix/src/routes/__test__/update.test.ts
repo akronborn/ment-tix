@@ -2,6 +2,8 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 
+import { natsWrapper } from '../../nats-wrapper';
+
 it('returns 404 if id does not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
   await request(app)
@@ -121,4 +123,28 @@ it('tix updated when valid inputs provided', async () => {
   expect(tixResponse.body.title).toEqual('Valid title');
   expect(tixResponse.body.content).toEqual('Valid content');
   expect(tixResponse.body.price).toEqual(0);
+});
+
+it('successfully publishes an event', async () => {
+  const cookie = global.signin();
+  const response = await request(app)
+    .post('/api/tix')
+    .set('Cookie', cookie)
+    .send({
+      title: 'a title',
+      content: 'some content',
+      price: 22,
+    });
+
+  await request(app)
+    .put(`/api/tix/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'Valid title',
+      content: 'Valid content',
+      price: 33,
+    })
+    .expect(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

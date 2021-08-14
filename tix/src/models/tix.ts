@@ -8,7 +8,7 @@ interface TixAttrs {
 }
 
 interface TixDoc extends mongoose.Document {
-  title: number;
+  title: string;
   content: string;
   price: number;
   userId: string;
