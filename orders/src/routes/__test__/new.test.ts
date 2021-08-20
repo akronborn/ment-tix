@@ -4,6 +4,7 @@ import { app } from '../../app';
 import { Order } from '../../models/order';
 import { OrderStatus } from '../../middleware/states/order-status';
 import { Tix } from '../../models/tix';
+import { natsWrapper } from '../../nats-wrapper';
 
 it('returns error if tix does not exist', async () => {
   const tixId = mongoose.Types.ObjectId();
@@ -50,4 +51,21 @@ it('reserves tix', async () => {
     .set('Cookie', global.signin())
     .send({ tixId: tix.id })
     .expect(201);
+});
+
+it('emits an order created event', async () => {
+  const tix = Tix.build({
+    title: 'mentorship',
+    content: 'description',
+    price: 45,
+  });
+  await tix.save();
+
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', global.signin())
+    .send({ tixId: tix.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
