@@ -10,6 +10,9 @@ import { OrderStatus } from '../middleware/states/order-status';
 import { body } from 'express-validator';
 import { Tix } from '../models/tix';
 import { Order } from '../models/order';
+import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
+import { Publisher } from '../events/publishers/cmn-publisher';
 
 const router = express.Router();
 
@@ -49,6 +52,16 @@ router.post(
     await order.save();
 
     //Emit order completion event
+    new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      userId: order.userId,
+      expiresAt: order.expiresAt.toISOString(),
+      tix: {
+        id: tix.id,
+        price: tix.price,
+      },
+    });
 
     res.status(201).send(order);
   }
