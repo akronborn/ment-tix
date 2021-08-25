@@ -1,6 +1,8 @@
 import { app } from './app';
 import mongoose from 'mongoose';
 import { natsWrapper } from './nats-wrapper';
+import { TixCreatedListener } from './events/Listeners/tix-created-listener';
+import { TixUpdatedListener } from './events/Listeners/tix-updated-listener';
 
 const startDB = async () => {
   if (!process.env.JWT_KEY) {
@@ -31,6 +33,10 @@ const startDB = async () => {
       console.log('Nats connection closed');
       process.exit();
     });
+
+    new TixCreatedListener(natsWrapper.client).listen();
+    new TixUpdatedListener(natsWrapper.client).listen();
+
     await mongoose.connect(`${process.env.MONGO_URI}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

@@ -3,6 +3,7 @@ import { Order } from './order';
 import { OrderStatus } from '../middleware/states/order-status';
 
 interface TixAttrs {
+  id: string;
   title: string;
   content: string;
   price: number;
@@ -46,7 +47,12 @@ const tixSchema = new mongoose.Schema(
 );
 
 tixSchema.statics.build = (attrs: TixAttrs) => {
-  return new Tix(attrs);
+  return new Tix({
+    _id: attrs.id,
+    title: attrs.title,
+    content: attrs.content,
+    price: attrs.price,
+  });
 };
 
 tixSchema.methods.isReserved = async function () {
