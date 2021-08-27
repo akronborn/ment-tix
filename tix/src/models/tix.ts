@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface TixAttrs {
   title: string;
@@ -12,6 +13,7 @@ interface TixDoc extends mongoose.Document {
   content: string;
   price: number;
   userId: string;
+  instance: number;
 }
 
 interface TixModel extends mongoose.Model<TixDoc> {
@@ -46,6 +48,9 @@ const tixSchema = new mongoose.Schema(
     },
   }
 );
+
+tixSchema.set('versionKey', 'instance');
+tixSchema.plugin(updateIfCurrentPlugin);
 
 tixSchema.statics.build = (attrs: TixAttrs) => {
   return new Tix(attrs);
