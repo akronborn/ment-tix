@@ -18,6 +18,7 @@ it('returns error if tix does not exist', async () => {
 
 it('returns error if tix already reserved', async () => {
   const tix = Tix.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'mentorship',
     content: 'description',
     price: 20,
@@ -40,6 +41,7 @@ it('returns error if tix already reserved', async () => {
 
 it('reserves tix', async () => {
   const tix = Tix.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'mentorship',
     content: 'description',
     price: 45,
@@ -55,6 +57,7 @@ it('reserves tix', async () => {
 
 it('emits an order created event', async () => {
   const tix = Tix.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'mentorship',
     content: 'description',
     price: 45,

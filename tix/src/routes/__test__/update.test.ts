@@ -23,6 +23,7 @@ it('returns 401 if user not authenticated', async () => {
     .put(`/api/tix/${id}`)
     .send({
       title: 'Meetup',
+      instance: 0,
       content: "Let's meetup",
       price: 20,
     })

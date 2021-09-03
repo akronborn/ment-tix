@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
 import { Tix } from '../../models/tix';
@@ -8,6 +9,7 @@ import { natsWrapper } from '../../nats-wrapper';
 it('marks an order as cancelled', async () => {
   // create tix with Tix Model
   const tix = Tix.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Session',
     content: 'description',
     price: 30,
@@ -37,6 +39,7 @@ it('marks an order as cancelled', async () => {
 
 it('emits an order canceled event', async () => {
   const tix = Tix.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Session',
     content: 'description',
     price: 30,

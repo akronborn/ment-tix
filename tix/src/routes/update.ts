@@ -42,6 +42,7 @@ router.put(
 
     new TixUpdatedPublisher(natsWrapper.client).publish({
       id: tix.id,
+      instance: tix.instance,
       title: tix.title,
       content: tix.content,
       price: tix.price,

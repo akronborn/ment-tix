@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Order } from './order';
 import { OrderStatus } from '../middleware/states/order-status';
 
@@ -10,6 +11,7 @@ interface TixAttrs {
 }
 
 export interface TixDoc extends mongoose.Document {
+  instance: number;
   title: string;
   content: string;
   price: number;
@@ -18,6 +20,10 @@ export interface TixDoc extends mongoose.Document {
 
 interface TixModel extends mongoose.Model<TixDoc> {
   build(attrs: TixAttrs): TixDoc;
+  findByConsult(consult: {
+    id: string;
+    instance: number;
+  }): Promise<TixDoc | null>;
 }
 
 const tixSchema = new mongoose.Schema(
@@ -45,6 +51,19 @@ const tixSchema = new mongoose.Schema(
     },
   }
 );
+
+tixSchema.set('versionKey', 'instance');
+tixSchema.plugin(updateIfCurrentPlugin);
+
+tixSchema.statics.findByConsult = (consult: {
+  id: string;
+  instance: number;
+}) => {
+  return Tix.findOne({
+    _id: consult.id,
+    instance: consult.instance - 1,
+  });
+};
 
 tixSchema.statics.build = (attrs: TixAttrs) => {
   return new Tix({
