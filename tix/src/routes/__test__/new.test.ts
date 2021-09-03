@@ -28,9 +28,12 @@ it('error thrown when title is invalid ', async () => {
     .post('/api/tix')
     .set('Cookie', global.signin())
     .send({
+      id: 'abc',
       title: '',
+      instance: 0,
       content: 'description',
       price: 10,
+      userId: '1234',
     })
     .expect(400);
 

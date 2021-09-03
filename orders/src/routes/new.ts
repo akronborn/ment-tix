@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import mongoose from 'mongoose';
 
 import { authWall } from '../middleware/auth-wall';
 import { validateRequest } from '../middleware/validate-request';
@@ -12,7 +11,6 @@ import { Tix } from '../models/tix';
 import { Order } from '../models/order';
 import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
-import { Publisher } from '../events/publishers/cmn-publisher';
 
 const router = express.Router();
 
@@ -54,6 +52,7 @@ router.post(
     //Emit order completion event
     new OrderCreatedPublisher(natsWrapper.client).publish({
       id: order.id,
+      instance: order.instance,
       status: order.status,
       userId: order.userId,
       expiresAt: order.expiresAt.toISOString(),

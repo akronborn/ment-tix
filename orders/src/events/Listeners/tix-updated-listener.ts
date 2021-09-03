@@ -10,7 +10,7 @@ export class TixUpdatedListener extends Listener<TixUpdatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: TixUpdatedEvent['data'], msg: Message) {
-    const tix = await Tix.findById(data.id);
+    const tix = await Tix.findByConsult(data);
 
     if (!tix) {
       throw new Error('Tix not found');
