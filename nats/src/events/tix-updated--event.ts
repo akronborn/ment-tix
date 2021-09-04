@@ -9,5 +9,6 @@ export interface TixUpdatedEvent {
     content: string;
     price: number;
     userId: string;
+    orderId?: string;
   };
 }

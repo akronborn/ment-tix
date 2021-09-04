@@ -8,6 +8,7 @@ import { UnAuthorizedError } from '../errors/unauthorized-error';
 import { TixUpdatedPublisher } from '../events/publishers/tix-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
 import { Tix } from '../models/tix';
+import { BadRequestError } from '../errors/bad-request-error';
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ router.put(
 
     if (!tix) {
       throw new PageNotFound();
+    }
+
+    if (tix.orderId) {
+      throw new BadRequestError('Edits not permitted while tix reserved');
     }
 
     if (tix.userId !== req.activeUser!.id) {
