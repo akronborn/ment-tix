@@ -1,5 +1,5 @@
-import { Subjects } from './subjects';
-import { OrderStatus } from '../../middleware/states/order-status';
+import { Subjects } from '../publishers/subjects';
+import { OrderStatus } from '../states/order-status';
 
 export interface OrderCreatedEvent {
   subject: Subjects.OrderCreated;

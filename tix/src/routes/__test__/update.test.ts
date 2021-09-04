@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
+import { Tix } from '../../models/tix';
 import mongoose from 'mongoose';
 
 import { natsWrapper } from '../../nats-wrapper';
@@ -148,4 +149,30 @@ it('successfully publishes an event', async () => {
     .expect(200);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+it('Does not permit editing of reserved tix', async () => {
+  const cookie = global.signin();
+  const response = await request(app)
+    .post('/api/tix')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Consultation',
+      content: 'Review',
+      price: 44,
+    });
+
+  const tix = await Tix.findById(response.body.id);
+  tix!.set({ orderId: mongoose.Types.ObjectId().toHexString() });
+  await tix!.save();
+
+  await request(app)
+    .put(`/api/tix/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'New Consultation',
+      content: 'New review',
+      price: 444,
+    })
+    .expect(400);
 });
