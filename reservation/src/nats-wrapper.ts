@@ -16,7 +16,7 @@ class NatsWrapper {
 
     return new Promise<void>((resolve, reject) => {
       this.client.on('connect', () => {
-        console.log('Connected to Expiration-NATS');
+        console.log('Connected to Reservation-NATS');
         resolve();
       });
       this.client.on('error', (err: any) => {
