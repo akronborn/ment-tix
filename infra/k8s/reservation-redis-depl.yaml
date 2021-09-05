@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-redis-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation-redis
+  template:
+    metadata:
+      labels:
+        app: reservation-redis
+    spec:
+      containers:
+        - name: reservation-redis
+          image: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-redis-srv
+spec:
+  selector:
+    app: reservation-redis
+  ports:
+    - name: redisport
+      protocol: TCP
+      port: 6379
+      targetPort: 6379
