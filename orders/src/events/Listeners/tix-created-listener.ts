@@ -1,7 +1,7 @@
 import { Message } from 'node-nats-streaming';
 import { Subjects } from '../publishers/subjects';
 import { Listener } from './cmn-listener';
-import { TixCreatedEvent } from '../publishers/tix-created-event';
+import { TixCreatedEvent } from './tix-created-event';
 import { Tix } from '../../models/tix';
 import { queueGroupName } from './queue-group-name';
 
