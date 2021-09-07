@@ -1,4 +1,5 @@
 import { natsWrapper } from './nats-wrapper';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 const startDB = async () => {
   if (!process.env.NATS_CLIENT_ID) {
@@ -23,6 +24,8 @@ const startDB = async () => {
       console.log('Nats connection closed');
       process.exit();
     });
+
+    new OrderCreatedListener(natsWrapper.client).listen();
   } catch (err) {
     console.error(err);
   }
