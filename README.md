@@ -1,4 +1,4 @@
-<a href="https://ibb.co/Z1C08Sn"><img src="https://i.ibb.co/DgnZCYx/Logo.png" alt="Logo" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>Ment-Tix</a><br />
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/HNHH4J8/Ment-tix-final-logo.jpg" alt="Ment-tix-final-logo" border="0"></a>
 
 The dilemma:
 
