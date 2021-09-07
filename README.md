@@ -1,3 +1,5 @@
+<a href="https://ibb.co/Z1C08Sn"><img src="https://i.ibb.co/DgnZCYx/Logo.png" alt="Logo" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>Ment-Tix</a><br />
+
 The dilemma:
 
 After speaking with other developers, professional and novices in different fields, and hobbyists of various of interests, all seem to deal with the same recurring problem: a lack of mentorship. New developers are often afraid of asking too many questions or coming across as unqualified to their collegues. Whether dealing with imposter syndrome or needing career advice (not being sure which path to take, where their skills might be lacking,etc), having a mentor can do wonders for one's professional development.
