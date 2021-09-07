@@ -1,6 +1,6 @@
 import { Message } from 'node-nats-streaming';
 import mongoose from 'mongoose';
-import { TixCreatedEvent } from '../../publishers/tix-created-event';
+import { TixCreatedEvent } from '../tix-created-event';
 import { TixCreatedListener } from '../tix-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Tix } from '../../../models/tix';
