@@ -1,12 +1,12 @@
-import Link from "next/link";
-import Image from "next/image";
-import Logo from "../public/Logo.svg";
+import Link from 'next/link';
+import Image from 'next/image';
+import Logo from '../public/Logo.png';
 
 const Header = ({ activeUser }) => {
   const links = [
-    !activeUser && { label: "Sign Up", href: "/auth/signup" },
-    !activeUser && { label: "Log In", href: "/auth/login" },
-    activeUser && { label: "Log Out", href: "/auth/logout" },
+    !activeUser && { label: 'Sign Up', href: '/auth/signup' },
+    !activeUser && { label: 'Log In', href: '/auth/login' },
+    activeUser && { label: 'Log Out', href: '/auth/logout' },
   ]
     .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
@@ -26,7 +26,8 @@ const Header = ({ activeUser }) => {
           <Image
             src={Logo}
             alt="Ment-Tix Logo"
-            height="280"
+            height="512"
+            width="512"
             alt="Ment-Tix Logo"
           />
         </a>
