@@ -1,6 +1,8 @@
 import { app } from './app';
 import mongoose from 'mongoose';
 import { natsWrapper } from './nats-wrapper';
+import { OrderCanceledListener } from './events/listeners/order-canceled-listener';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 const startDB = async () => {
   if (!process.env.JWT_KEY) {
@@ -31,6 +33,9 @@ const startDB = async () => {
       console.log('Nats connection closed');
       process.exit();
     });
+
+    new OrderCanceledListener(natsWrapper.client).listen();
+    new OrderCreatedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI}`, {
       useNewUrlParser: true,
