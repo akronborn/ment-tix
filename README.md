@@ -1,6 +1,6 @@
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/prCVN92/Ment-tix-final-icon-v2.jpg" alt="Ment-tix-final-icon-v2" border="0"></a>
 
-                                                Ment-Tix
+                                                Ment-Tix: Ecommerce site using microservices, a prototype to scaffold similarly scaled upcoming projects
 
 The dilemma:
 

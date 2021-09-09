@@ -10,6 +10,13 @@ spec:
     - host: mentmint.dev
       http:
         paths:
+          - path: /api/transactions/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: transactions-srv
+                port:
+                  number: 3000
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
