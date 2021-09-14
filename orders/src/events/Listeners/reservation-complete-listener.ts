@@ -17,6 +17,10 @@ export class ReservationCompleteListener extends Listener<ReservationCompleteEve
     if (!order) {
       throw new Error('Order Not Found');
     }
+    if (order.status === OrderStatus.Complete) {
+      return msg.ack();
+    }
+
     order.set({
       status: OrderStatus.Canceled,
     });

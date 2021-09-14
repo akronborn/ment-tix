@@ -7,4 +7,6 @@ export enum Subjects {
   OrderCanceled = 'order:canceled',
 
   ReservationComplete = 'reservation:complete',
+
+  TransactionCreated = 'transaction:created',
 }

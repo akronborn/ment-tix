@@ -4,6 +4,7 @@ import { natsWrapper } from './nats-wrapper';
 import { TixCreatedListener } from './events/Listeners/tix-created-listener';
 import { TixUpdatedListener } from './events/Listeners/tix-updated-listener';
 import { ReservationCompleteListener } from './events/Listeners/reservation-complete-listener';
+import { TransactionCreatedListener } from './events/Listeners/transaction-created-listener';
 
 const startDB = async () => {
   if (!process.env.JWT_KEY) {
@@ -38,6 +39,7 @@ const startDB = async () => {
     new TixCreatedListener(natsWrapper.client).listen();
     new TixUpdatedListener(natsWrapper.client).listen();
     new ReservationCompleteListener(natsWrapper.client).listen();
+    new TransactionCreatedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI}`, {
       useNewUrlParser: true,

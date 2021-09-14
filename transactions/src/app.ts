@@ -2,7 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 const cookieSession = require('cookie-session');
-import { newChargeRouter } from './routes/newCharge';
+import { newChargeRouter } from './routes/new-charge';
 
 import { errorHandler } from './middleware/error-handler';
 import { PageNotFound } from './errors/page-not-found-error';
