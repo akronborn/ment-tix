@@ -3,10 +3,13 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 declare global {
-  var signin: () => string[];
+  var signin: (id?: string) => string[];
 }
 
 jest.mock('../nats-wrapper.ts');
+
+process.env.STRIPE_KEY =
+  'sk_test_51JT92uLsW2v3AuGwXCqzif3eF87pLz81q5e6zdWqOddcikCXKBddjN6sNmwrbiQ2ab7vcEuFoGgzE28PAkN5SXOV00lIbI1a0Y';
 
 let mongod: any;
 beforeAll(async () => {

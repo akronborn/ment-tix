@@ -7,6 +7,10 @@ import { validateRequest } from '../middleware/validate-request';
 import { UnAuthorizedError } from '../errors/unauthorized-error';
 import { Order } from '../models/order';
 import { OrderStatus } from '../events/states/order-status';
+import { stripe } from '../stripe';
+import { Transaction } from '../models/transaction';
+import { TransactionCreatedPublisher } from '../events/publishers/transaction-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -31,7 +35,26 @@ router.post(
         'Order canceled/invalid: Payment Not Permitted'
       );
     }
-    res.send({ success: true });
+
+    const charge = await stripe.charges.create({
+      currency: 'usd',
+      amount: order.price * 100,
+      source: token,
+    });
+    const transaction = Transaction.build({
+      orderId,
+      stripeId: charge.id,
+    });
+
+    await transaction.save();
+
+    await new TransactionCreatedPublisher(natsWrapper.client).publish({
+      id: transaction.id,
+      orderId: transaction.orderId,
+      stripeId: transaction.stripeId,
+    });
+
+    res.status(201).send({ id: transaction.id });
   }
 );
 
