@@ -12,8 +12,16 @@ router.post(
   '/api/tix',
   authWall,
   [
-    body('title').not().isEmpty().withMessage('Title required'),
-    body('content').not().isEmpty().withMessage('Description required'),
+    body('title')
+      .not()
+      .isEmpty()
+      .isLength({ min: 5 })
+      .withMessage('Title with at least 5 characters required'),
+    body('content')
+      .not()
+      .isEmpty()
+      .isLength({ min: 5 })
+      .withMessage('Description required'),
     body('price')
       .isFloat({ min: 0 })
       .withMessage('Price must be greater than zero'),
