@@ -26,8 +26,8 @@ const Header = ({ activeUser }) => {
           <Image
             src={Logo}
             alt="Ment-Tix Logo"
-            height="512"
-            width="512"
+            height="256"
+            width="256"
             alt="Ment-Tix Logo"
           />
         </a>
