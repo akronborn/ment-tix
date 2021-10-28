@@ -14,7 +14,7 @@ const NewTix = () => {
       content,
       price,
     },
-    // change to /tix/:tixId
+
     onSuccess: () => Router.push('/'),
   });
 

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const LandingPage = ({ activeUser, tix }) => {
   const showTix = tix.map((tix) => {
     return (
@@ -5,6 +7,11 @@ const LandingPage = ({ activeUser, tix }) => {
         <td>{tix.title}</td>
         <td>{tix.content}</td>
         <td>{tix.price}</td>
+        <td>
+          <Link href="/tix/[tixId]" as={`/tix/${tix.id}`}>
+            <a>View Tix</a>
+          </Link>
+        </td>
       </tr>
     );
   });
@@ -17,6 +24,7 @@ const LandingPage = ({ activeUser, tix }) => {
           <th>Title</th>
           <th>Content</th>
           <th>Price</th>
+          <th>Link</th>
         </thead>
         <tbody>{showTix}</tbody>
       </table>
