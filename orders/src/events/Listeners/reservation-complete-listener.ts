@@ -17,6 +17,7 @@ export class ReservationCompleteListener extends Listener<ReservationCompleteEve
     if (!order) {
       throw new Error('Order Not Found');
     }
+
     if (order.status === OrderStatus.Complete) {
       return msg.ack();
     }
@@ -25,7 +26,6 @@ export class ReservationCompleteListener extends Listener<ReservationCompleteEve
       status: OrderStatus.Canceled,
     });
     await order.save();
-
     await new OrderCanceledPublisher(this.client).publish({
       id: order.id,
       instance: order.instance,

@@ -1,4 +1,4 @@
-import { Subjects } from '../listeners/subjects';
+import { Subjects } from '../publishers/subjects';
 
 export interface ReservationCompleteEvent {
   subject: Subjects.ReservationComplete;
